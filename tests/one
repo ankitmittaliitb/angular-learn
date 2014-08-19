@@ -1,0 +1,59 @@
+Jasmine is a unit testing framework for JS. 
+specs is the word for test suite. 
+
+"it" function is basically a test. 
+expect('x').toBe('x');
+
+toBeTruthy(), toBeFalsy(), toBeLessThan(), not.toBeMoreThan(), not.toBeNull(), toContain(), not.toThrow() { not throw an exception }
+
+beforeEach() is used if you want to set something up.. variable, mock or anything. 
+afterEach() is also there. 
+
+Put an x before a suite or test to skip it but report it. 
+
+spyOn() //understand more of this. 
+
+can run semi asynchronously.. by using runs. wait for set timeout and then expect something. 
+
+
+----------------------------------------------
+Jasmine is a behavior-driven development framework for testing JavaScript code. There are no slides for this talk, Ill be sharing my screen and will go through documentation and code with the flow. If there is anything which isnt visible properly or isnt readable, let me know I'll adjust the size. BDD to me looks exactly like TDD with a B, there might be some suble differences but it smells like hacker news type people. 
+
+A test suite in jasmine begins with the function called describe and individual tests by a function called as 'it'. It function expects a minimum of one expect statement which is similar 'assert' in python. There can be multiple of those. 
+Jasmine provides multiple ways to build up the expect statement like not.toBe... etc etc
+
+There is a way to add custom matcher function for a set of test suits of a project. 
+
+I have made a table of all the available commands and will be sharing it after the talk. These commands used to build expect statements are called matcher functions. And they implement a boolean comparision between two values as defined by the matcher function. 
+
+Notice that second argument to describe and it are functions, which contains all the code to run the suite and a spec.. individual tests are called spec in jasmine. So all the javascript variable scoping rules will apply here. 
+
+To skip a test put an x as prefix to describe or it. It wont run it but will report it as pending or skipped. 
+
+If you want to do a very simple integration test with real services and real server calls, there is support for asynchronous functions as well. 
+
+In practice we use Karma to run the tests. Jasmine in itself is the expression language kind of thing and we need test runners to actually run the tests. There are multiple runners around but karma is one of the most popular one. 
+
+TDD and fake TDD
+Fake : 
+    1. Keep fixing your code untill you cant see any bugs and code seems to be working
+    2. Test using alerts and console logs
+    3. Hotswap variables to corner bugs. 
+    4. Refresh page/api as much as possible to find edge cases
+    5. Bother only with chrome for this purpose
+    6. Keep fingers crossed untill travis passes the QA, cross fingers again when george or john is supposed to merge the branches. 
+
+This in one sense is a very natural version of tdd, you test the code manually and react to those manual error logs. 
+TDD in real sense is an unnatural automated way of doing this procedure. You write some tests, reuse them again and again till the code and tests become perfectly complementary. I hope doing this again and again makes it as natural as the manual tdd. 
+
+    With real tdd
+    1. Write tests inline during development.. or maybe before
+    2. Focus on one test and skip most to corner bugs in one part of the code
+    3. Use mock json responses or fixtures to focus on one part of the stack. 
+    4. Create integration tests later on to check the different pieces of stack are talking well to each other. 
+
+
+
+
+---------To do --------
+1. Make a table of available matcher functions in jasmine

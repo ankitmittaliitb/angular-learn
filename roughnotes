@@ -1,0 +1,48 @@
+resourses
+tinyurl.com/AngularJSDemos (sample codes)
+builtwith.angularjs.org
+angular-ui.github.io
+mgcrea.github.io/angular-strap
+pluralsight.com
+
+
+var app = angular.module('store', []);
+//in the array you write dependencies. 
+save this in app.js file. and mention in html tag ng-app="store"
+
+as soon as you include ng-app directive in html, within this html tag you can now have dynamic expressions. 
+{{ 4 + 6}} math summation
+{{ "hello" + " you" }} 
+check angular docs on expressions. 
+
+
+---------
+controlers are where we define our apps behaviour by defining functions and values.
+also wrapping the app defiinition in a closure
+
+(function() {
+  var app = angular.module('store', []);
+
+    app.controller('StoreController', function(){
+    // secind variable is an anonymous function
+    this.product = gem; 
+    //defining the variable to get access to it within controller
+
+});
+
+
+var gem = {
+    name: 'Dodecahedron',
+    price: 2.5,
+    description: '. . .',
+  }
+
+})();
+
+
+
+in html use directive ng-controller to a div where you want the controller, its funcitons and values to be available. 
+
+<div ng-controller="StoreController as store">
+  <h1> {{ store.product.name}} </h1>
+</div>

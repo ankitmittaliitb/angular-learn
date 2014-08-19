@@ -1,0 +1,171 @@
+60 minutes angular
+    Data Bindings, directives, filters, controllers
+    conditional logic is not supported in data binding expressions. WHich is good because you shoulnt be putting that in views.     
+
+    controller should have all the logic and nothing in view. the glue between view and controller is $scope. The controller and views should be kept completely independednt and only scope should talk with both. 
+
+    Module can have a config function and it can be used to define routes. THe different views that can be loaded in a shell page can be tracked via routes. A route can have a view and a controller. A given controller and view will have a shared $scope. A controller can call services/factories etc for getting and sending data. Within a view directives and filters are used.
+
+    definition of module with dependency injection 
+        var demoModule = angular.module('demoModule', 
+            ['helperModule']);
+    definition of a module without any dependency
+        var demoModule = angular.module('demoModule', []);
+
+
+    #now routes
+    demoModule.config(function ($routeProvider) {
+        $routeProvider
+            .when('/',
+                {
+                    controller: 'SimpleController',
+                    templateUrl: 'View1.html'
+                })
+            .when('/partial2', 
+                {
+                    controller: 'SimpleController',
+                    templateUrl: 'View2.html'
+                })
+
+            .otherwise({ redirectTo: '/' });
+    });
+
+
+    Factories : 
+    demoModule.factory('simpleFactory, function() {
+        var factory = {};
+        var customers = [ ... ];
+        factory.getCustomers = function() {
+            return customers;
+        };
+        return factory;
+    });
+
+
+
+
+
+
+List of directives
+    1. ng-app : initialize angular app by putting it in html tag (generally)
+    2. ng-repeat : to loop through iterators / arrays
+    3. ng-model : to bind a data from dom into an angular models
+    4. ng-init : explicitly initialize data as array or variable
+    5. ng-show, ng-hide : control visibility depending on a bool variable or an expression
+    6. ng-controller : attach a controller to div/body
+    7. ng-src
+    8. ng-click : evalueates an expression on clicking, or calls a function of current controller
+    9. ng-class : ng-class="{ classname : Expression }" applies classname to the tag if expression is true. The expression can be a function of current controller returning a bool. 
+    10. ng-submit : allows to call a function when a form is submitted
+    11. ng-include : include a html snippet here from a new file. Expects a variable name here and to use it directly use single quotes within double quotes.               ng-include="'hardcodedFileName.html'"
+
+
+List of Filters
+    1. uppercase
+    2. lowercase
+    3. {{ a model }} filter:modelname, can be used to filter in ng-repeat
+
+Caution
+    <img src="{{ controllerName.dataVariable.image }}"> This would not work, the browser tries to load image before the expression gets evalueated. 
+    SOlutiono is to use src directive. 
+    <img ng-src="{{ store.product.image[0].thumb }}">
+
+
+
+Forms
+    formname.$valid is an internal property of every form. 
+    to submit only if form is valid, do something like this :  
+        ng-submit="formName.$valid && ctrlName.submitFunc()"
+
+    available validations in angular : email, url, number (can specify min and max
+
+
+Custom Directives
+    1. Template Expanding Directives - simplest ones, define a custom tag which expands and show up as template like ng-include
+    others can include controller logic, calling events and registering event handlers, expressing complex ui, 
+
+
+    app.directive('directiveName', function() {
+        return {
+                // this anonymous function returns a directive definition object
+                restrict : 'E',                    //type of directive, E stands for HTML since we are creating a new html element
+                templateUrl : 'product-title.html'
+        };
+
+    });
+
+    // this would mean directive-name in html.
+    //whenever now <directive-name></directive-name> is used in html, angular will pick this tempalte and paste it whereever the tag is used. The tempalte will be loaded using ajax call. 
+
+    There can be attribute directive, like <normalTag directive-name> </normalTag>  //this is good for things like mixins, use restrict 'A' for this. 
+
+
+    app.directive('someDirective', function() {
+        return {
+            restrict : 'E',
+            templateUrl : 'some-template.html',
+            controller : function() {
+                //same controller function
+            },
+            controllerAs : somename 
+                //alias of controller
+
+
+
+
+
+
+
+===================================================
+Lynda Course
+A JS framework for wrtiting frontend for SPA (single page apps)
+superpowers : templateing, filters, 2 way data binding. 
+Can be integrated with moustache and handlebars
+
+ng-src in img instead of normal src. 
+
+
+        };
+
+    });
+
+=============================================
+Easier AngularJS Course
+Watching models change and reacting to that change
+In a controller :
+    $scope.$watch('modelName', function() {
+        //will run this function whenever this model changes calue
+    });
+
+Default value of a model while displaying something
+
+{{ modelName | "hello world" }}
+
+creating a custom filter
+myApp.filter('clean', function() {
+    return function(input) {
+        var output = input;
+        return output;
+    };
+});
+=============================================
+Pro Angular Book
+Installing and checking nodejs in on 13 page. 
+what are good ides for angular dev on linux? Only livereload would also do for now. 
+
+deployd : see what it does and maybe look for an alternative. 
+
+batarang extension for chrome to eplore ng models and controllers at real time. 
+
+
+=================
+To display html from a variable 
+do : 
+    <div ng-bind-html-unsafe="question.text"> </div>
+instead of 
+    {{ question.text }}
+
+
+=================================================
+TODO
+1. Read examples from angular.org
